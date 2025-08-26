@@ -1,31 +1,31 @@
-@extends('layouts.app', ['title' => 'Data Pasien']);
+@extends('layouts.app', ['title' => 'Data Pendaftaran']);
 @section('content')
     <div class="card">
-        <h5 class="card-header">Data Pasien</h5>
+        <h5 class="card-header">Data Pendaftaran</h5>
         <div class="card-body">
-            <h3>Data Pasien</h3>
-            <a href="/pasien/create" class="btn btn-primary">Tambah Data</a>
+            <h3>Data Pendaftaran</h3>
+            <a href="/daftar/create" class="btn btn-primary">Tambah Data</a>
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>CM Pasien</th>
                         <th>Nama</th>
-                        <th>Umur</th>
                         <th>Jenis Kelamin</th>
-                        <th>Tgl Buat</th>
+                        <th>Tanggal Daftar</th>
+                        <th>Poli</th>
+                        <th>Keluhan</th>
                         <th>AKSI</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($pasien as $item)
+                    @foreach ($daftar as $item)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $item->no_pasien }}</td>
-                        <td>{{ $item->nama }}</td>
-                        <td>{{ $item->umur }}</td>
-                        <td>{{ $item->jenis_kelamin }}</td>
-                        <td>{{ $item->created_at }}</td>
+                        <td>{{ $item->pasien->nama }}</td>
+                        <td>{{ $item->pasien->jenis_kelamin }}</td>
+                        <td>{{ $item->tanggal_daftar }}</td>
+                        <td>{{ $item->poli }}</td>
+                        <td>{{ $item->keluhan }}</td>
                         <td>
                             <a href="/pasien/{{ $item->id }}/edit" class="btn btn-warning btn-sm">Edit</a>
 
@@ -46,7 +46,7 @@
                     @endforeach
                 </tbody>
             </table>
-            {!! $pasien->links() !!}
+            {!! $daftar->links() !!}
         </div>
     </div>
 @endsection

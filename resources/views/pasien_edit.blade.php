@@ -1,8 +1,8 @@
 @extends('layouts.app', ['title' => 'Edit Data Pasien']);
 @section('content')
     <div class="card">
+        <h5 class="card-header">Edit Data Pasien <b>{{ $pasien->nama }}</b></h5>
         <div class="card-body">
-            <h5 class="card-title">Edit Data Pasien <b>{{ $pasien->nama }}</b></h5>
             <form action="/pasien/{{ $pasien->id }}" method="POST">
                 @method('put')
                 @csrf
