@@ -34,14 +34,12 @@ class PasienController extends Controller
             'umur' => 'required|numeric',
             'jenis_kelamin' => 'required|in:laki-laki,perempuan',
             'alamat' => 'nullable',
-            'foto' => 'required|image|mimes:jpeg,png,jpg|max:10000'
         ]);
         $pasien = new \App\Models\Pasien;
     $pasien->fill($requestData);
-    $pasien->foto = $request->file('foto')->store('public');
     $pasien->save();
     flash('Data pasien berhasil disimpan')->success();
-    return back();
+    return redirect('/pasien');
     }
 
     /**
@@ -66,14 +64,28 @@ class PasienController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
-    }
+         $requestData = $request->validate([
+            'nama' => 'required|min:3',
+            'no_pasien' => 'required|unique:pasiens,no_pasien,' . $id,
+            'umur' => 'required|numeric',
+            'jenis_kelamin' => 'required|in:laki-laki,perempuan',
+            'alamat' => 'nullable',
+        ]);
+        $pasien = \App\Models\Pasien::findOrFail($id);
+        $pasien->fill($requestData);
+        $pasien->save();
+        flash('Data pasien berhasil diupdate')->success();
+         return redirect('/pasien');
+        }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        $pasien = \App\Models\Pasien::findOrFail($id);
+        $pasien->delete();
+        flash('Data berhasil dihapus');
+        return back();
     }
 }
