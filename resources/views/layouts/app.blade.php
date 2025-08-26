@@ -30,7 +30,8 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
+                        @auth 
+                            <li class="nav-item">
                             <a
                                 class="nav-link active"
                                 aria-current="page"
@@ -63,6 +64,9 @@
                                 </li>
                             </ul>
                         </li>
+                        @endauth
+                        
+    
                     </ul>
 
                     <!-- Right Side Of Navbar -->

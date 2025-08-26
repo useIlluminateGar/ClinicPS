@@ -2,8 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\PasienController;
+use Illuminate\Auth\Middleware\Authenticate;
 
-Route::resource('pasien', PasienController::class);
+Route::middleware([Authenticate::class])->group(function(){
+    Route::resource('pasien', PasienController::class);
+});
+
+
 
 
 Auth::routes();
