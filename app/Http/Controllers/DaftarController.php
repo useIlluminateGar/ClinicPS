@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Daftar;
 use App\Http\Requests\StoreDaftarRequest;
 use App\Http\Requests\UpdateDaftarRequest;
+use Illuminate\Http\Request;
 
 class DaftarController extends Controller
 {
@@ -13,7 +14,12 @@ class DaftarController extends Controller
      */
     public function index()
     {
-        $data['daftar'] = \App\Models\Daftar::latest()->paginate(10);
+        if (request()->filled('q')) {
+            $data['daftar'] = \App\Models\Daftar::search(request('q'))->paginate(10);
+        } else {
+            $data['daftar'] = \App\Models\Daftar::latest()->paginate(10);
+        }
+
         return view('daftar_index', $data);
     }
 
@@ -22,23 +28,39 @@ class DaftarController extends Controller
      */
     public function create()
     {
-        //
+        $data['listPasien'] = \App\Models\Pasien::orderBy('nama', 'asc')->get();
+        $data['listPoli'] = \App\Models\Poli::orderBy('nama', 'asc')->get();
+        return view('daftar_create', $data);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreDaftarRequest $request)
+    public function store(Request $request)
     {
-        //
+        $requestData = $request->validate([
+            'tanggal_daftar' => 'required',
+            'pasien_id' => 'required',
+            'poli_id' => 'required',
+            'keluhan' => 'required',
+        ]);
+        $poli = \App\Models\Poli::findOrFail($requestData['poli_id']);
+        $daftar = new \App\Models\Daftar();
+        $daftar->biaya = $poli->biaya;
+        $daftar->fill($requestData);
+        $daftar->save();
+        flash('Data berhasil disimpan')->success();
+        return back();
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Daftar $daftar)
+    public function show($id)
     {
-        //
+        $data['daftar'] = Daftar::findOrFail($id);
+        
+        return view('daftar_show', $data);
     }
 
     /**
@@ -52,16 +74,27 @@ class DaftarController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateDaftarRequest $request, Daftar $daftar)
+    public function update(Request $request, $id)
     {
-        //
+        $requestData = $request->validate([
+            'diagnosis' => 'required',
+            'tindakan' => 'required',
+        ]);
+        $daftar = Daftar::findOrFail($id);
+        $daftar->fill($requestData);
+        $daftar->save();
+        flash('Data berhasil diupdate')->success();
+        return back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Daftar $daftar)
+    public function destroy($id)
     {
-        //
+        $daftar = Daftar::findOrFail($id);
+        $daftar->delete();
+        flash('Data berhasil dihapus')->success();
+        return back();
     }
 }

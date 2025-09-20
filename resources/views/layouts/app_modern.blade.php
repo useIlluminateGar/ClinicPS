@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ClinisPS</title>
+  <title>{{ $title ?? '' }} {{ env('APP_NAME') }}</title>
   <link rel="shortcut icon" type="image/png" href="/modern/src/assets/images/logos/favicon.png" />
   <link rel="stylesheet" href="/modern/src/assets/css/styles.min.css" />
 </head>
@@ -41,6 +41,22 @@
               </a>
             </li>
             <li class="sidebar-item">
+              <a class="sidebar-link" href="/poli" aria-expanded="false">
+                <span>
+                  <i class="ti ti-user"></i>
+                </span>
+                <span class="hide-menu">Data Poli</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/poli/create" aria-expanded="false">
+                <span>
+                  <i class="ti ti-user"></i>
+                </span>
+                <span class="hide-menu">Tambah Poli</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
               <a class="sidebar-link" href="/pasien" aria-expanded="false">
                 <span>
                   <i class="ti ti-user"></i>
@@ -62,6 +78,24 @@
                   <i class="ti ti-user"></i>
                 </span>
                 <span class="hide-menu">Pendaftaran Pasien</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link {{ request()->is('laporan-pasien') ? 'active' : '' }}" 
+                  href="/laporan-pasien/create" aria-expanded="false">
+                <span>
+                  <i class="ti ti-user"></i>
+                </span>
+                <span class="hide-menu">Laporan Data Pasien</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link {{ request()->is('laporan-daftar') ? 'active' : '' }}" 
+                  href="/laporan-daftar/create" aria-expanded="false">
+                <span>
+                  <i class="ti ti-user"></i>
+                </span>
+                <span class="hide-menu">Laporan Data Pendaftaran</span>
               </a>
             </li>
           </ul>
@@ -127,10 +161,18 @@
     </div>
   </div>
   <script src="/modern/src/assets/libs/jquery/dist/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script src="/modern/src/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="/modern/src/assets/js/sidebarmenu.js"></script>
   <script src="/modern/src/assets/js/app.min.js"></script>
   <script src="/modern/src/assets/libs/simplebar/dist/simplebar.js"></script>
+
+  <script>
+      $(document).ready(function () {
+          $('.select2').select2();
+      });
+  </script>
 </body>
 
 </html>

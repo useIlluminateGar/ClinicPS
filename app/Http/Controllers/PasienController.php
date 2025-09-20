@@ -35,7 +35,7 @@ class PasienController extends Controller
             'jenis_kelamin' => 'required|in:laki-laki,perempuan',
             'alamat' => 'nullable',
         ]);
-        $pasien = new \App\Models\Pasien;
+    $pasien = new \App\Models\Pasien;
     $pasien->fill($requestData);
     $pasien->save();
     flash('Data pasien berhasil disimpan')->success();

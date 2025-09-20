@@ -1,4 +1,4 @@
-@extends('layouts.app_modern', ['title' => 'Tambah Data Pasien']);
+@extends('layouts.app_modern', ['title' => 'Tambah Data Pasien'])
 @section('content')
     <div class="card">
         <h5 class="card-header">Tambah Data Pasien</h5>
@@ -39,6 +39,7 @@
                     <span class="text-danger">{{ $errors->first('alamat') }}</span>
                 </div>
                 <button type="submit" class="btn btn-primary">SIMPAN</button>
+
             </form>
         </div>
     </div>

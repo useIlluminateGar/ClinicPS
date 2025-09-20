@@ -1,35 +1,31 @@
-@extends('layouts.app_modern', ['title' => 'Data Pasien'])
+@extends('layouts.app_modern', ['title' => 'Data Poli'])
 @section('content')
     <div class="card">
-        <h5 class="card-header">Data Pasien</h5>
+        <h5 class="card-header">Data Poli</h5>
         <div class="card-body">
-            <h3>Data Pasien</h3>
-            <a href="/pasien/create" class="btn btn-primary">Tambah Data</a>
+            <h3>Data Poli</h3>
+            <a href="/poli/create" class="btn btn-primary">Tambah Poli</a>
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>CM Pasien</th>
                         <th>Nama</th>
-                        <th>Umur</th>
-                        <th>Jenis Kelamin</th>
-                        <th>Tgl Buat</th>
-                        <th>AKSI</th>
+                        <th>Biaya</th>
+                        <th>Keterangan</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($pasien as $item)
+                    @foreach ($poli as $item)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $item->no_pasien }}</td>
                         <td>{{ $item->nama }}</td>
-                        <td>{{ $item->umur }}</td>
-                        <td>{{ $item->jenis_kelamin }}</td>
-                        <td>{{ $item->created_at }}</td>
+                        <td>{{ $item->biaya }}</td>
+                        <td>{{ $item->keterangan }}</td>
                         <td>
-                            <a href="/pasien/{{ $item->id }}/edit" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="/poli/{{ $item->id }}/edit" class="btn btn-warning btn-sm">Edit</a>
 
-                            <form action="/pasien/{{ $item->id }}" method="POST" class="d-inline">
+                            <form action="/poli/{{ $item->id }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('delete')
                                 <button type="submit" class="btn btn-danger btn-sm ml-2" 
@@ -46,7 +42,7 @@
                     @endforeach
                 </tbody>
             </table>
-            {!! $pasien->links() !!}
+            {!! $poli->links() !!}
         </div>
     </div>
 @endsection
